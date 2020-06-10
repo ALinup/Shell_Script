@@ -1,0 +1,21 @@
+#!/bin/bash
+#清空原来ip文件里的列表，如果没有对应文件需要新建
+>/tmp/ip_ok
+>/tmp/ip_down
+ip=8.129.189
+#循环去ping局域网内的主机
+for ((i=1;i<=10;i++))
+do
+{
+#ping一次并把结果放进”黑洞“
+ping -c1 $ip.$i &>/dev/null
+#检查上次的输出是否是空，并且输出对应IP到相应文件当中
+test $? -eq 0 && echo "$ip.$i" |tee -a /tmp/ip_ok || echo "$ip.$i" |tee -a /tmp/ip_down
+}&
+done
+wait
+echo "ip is ok..."
+
+参数说明：
+在tee -a /tmp/ip_ok中：
+-a:追加的方式 等同于 >>
