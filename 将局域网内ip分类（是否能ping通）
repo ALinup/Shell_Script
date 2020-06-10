@@ -13,6 +13,7 @@ ping -c1 $ip.$i &>/dev/null
 test $? -eq 0 && echo "$ip.$i" |tee -a /tmp/ip_ok || echo "$ip.$i" |tee -a /tmp/ip_down
 }&
 done
+#wait(参数)   使用 wait 是在等待上一批或上一个脚本执行完（即上一个的进程终止），再执行wait之后的命令。
 wait
 echo "ip is ok..."
 
