@@ -9,7 +9,7 @@ do
 {
 #ping一次并把结果放进”黑洞“
 ping -c1 $ip.$i &>/dev/null
-#检查上次的输出是否是空，并且输出对应IP到相应文件当中
+#检查上面执行命令过后是否成功退出，如果满足，输出对应IP到相应文件当中
 test $? -eq 0 && echo "$ip.$i" |tee -a /tmp/ip_ok || echo "$ip.$i" |tee -a /tmp/ip_down
 }&
 done
@@ -18,6 +18,6 @@ echo "ip is ok..."
 
 参数说明：
 在test $? -eq 0中：
-$?是shell变量,表示"最后一次执行命令"的退出状态
+$?是shell变量,表示"最后一次执行命令"的退出状态.0为成功,非0为失败.
 在tee -a /tmp/ip_ok中：
 -a:追加的方式 等同于 >>
