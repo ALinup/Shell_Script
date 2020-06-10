@@ -1,0 +1,18 @@
+分析：
+1. 根据用户的uid来判断用户种类
+2.用户的信息保存在/etc/passwd文件中，需要在该文件中获取UID
+3.根据用户的uid去判断
+管理员:root 0
+系统用户：1-499	ftp apache ...  65534 nfsnobody
+普通用户：500-60000
+
+脚本内容：
+#!/bin/bash
+for i in `cat /etc/passwd|cut -d: -f1,3`
+        do
+                uid=`echo $i |cut -d: -f2`
+                name=`echo $i |cut -d: -f1`
+                [ $uid -eq 0 ] && echo $name >>/tmp/adminuser
+                [ $uid -gt 0 -a $uid -lt 500 -o $uid -eq 65534 ] && echo $name >>/tmp/systemuser
+                [ $uid -ge 500 -a $uid -ne 65534 ] && echo $name >>/tmp/normaluser
+        done
