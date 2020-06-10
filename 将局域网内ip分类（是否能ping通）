@@ -17,5 +17,7 @@ wait
 echo "ip is ok..."
 
 参数说明：
+在test $? -eq 0中：
+$?是shell变量,表示"最后一次执行命令"的退出状态
 在tee -a /tmp/ip_ok中：
 -a:追加的方式 等同于 >>
