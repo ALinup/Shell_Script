@@ -1,0 +1,22 @@
+#!/bin/bash
+read -p "Input a path:" path
+if [ -L $path -a -e $path ];then
+        echo "this is effective link"
+elif [ -L $path -a ! -e $path ];then
+        echo "this is not effective link"
+elif [ -d $path ];then
+        echo "this is a director"
+elif [ -f $path ];then
+        echo "this is file"
+elif [ -e $path ];then
+        echo "this is a other type file"
+else
+        echo "the file is not exist"
+fi
+
+参数说明：
+-p：给出提示符。默认不支持"\n"换行，要换行需要特殊处理，见下文示例。例如，"-p 请输入密码："
+[ -L FILE ] 如果 FILE 存在且是一个符号连接则为真。
+[ -d FILE ] 如果 FILE 存在且是一个目录则为真。
+[ -f FILE ] 如果 FILE 存在且是一个普通文件则为真。
+[ -e FILE ] 如果 FILE 存在则为真。
